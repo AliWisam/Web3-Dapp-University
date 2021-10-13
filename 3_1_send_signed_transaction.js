@@ -10,8 +10,8 @@ const web3 = new Web3(rpcURL);
 const account1 = '0xaF1B83016223cE17377984fc6aCD884e8b8A584F';
 const account2 = '0xba6b9C3835dF8a82328C549F50E1D369e31b0B48'; 
 
-const privateKey1 = Buffer.from(process.env.PRIVATE_KEY_1);
-const privateKey2 = Buffer.from(process.env.PRIVATE_KEY_2,'hex');
+const privateKey1 = Buffer.from(process.env['PRIVATE_KEY_1']);
+const privateKey2 = Buffer.from(process.env['PRIVATE_KEY_2'],'hex');
 console.log("privateKey1",privateKey1);
 console.log("privateKey2",privateKey2);
 
@@ -30,7 +30,7 @@ const transferEth = async ()=>{
             gasLimit: web3.utils.toHex(21000),
             gasPrice: web3.utils.toHex(web3.utils.toWei('10', 'gwei'))
           }
-        const tx = new Tx(txObject, {'chain': 'ropsten'});
+          const tx = new Tx(txObject, { chain: "ropsten", hardfork: "petersburg" });
         tx.sign(account1PrivateKey);
 
         const sesrializedTx =  tx.serialize();

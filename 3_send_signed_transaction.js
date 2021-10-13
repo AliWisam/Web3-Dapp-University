@@ -7,16 +7,15 @@ dotenv.config()
 const account1 = "0xaF1B83016223cE17377984fc6aCD884e8b8A584F";
 const account2 = "0xba6b9C3835dF8a82328C549F50E1D369e31b0B48";
 
-// const privateKey1 = process.env.PRIVATE_KEY_1
-// const privateKey2 = process.env.PRIVATE_KEY_2
-// console.log("sdsddsdsdsds",privateKey1)
-// privateKey1='0x5ffab17266fb40e4844935d9fc317bccb663c576b91708527439578f8f01cc6e';
-// privateKey2='0xac1c5713206654e7cd538785477d335f302437c29603ab6dabba1c2f5fc2176f';
+const privateKey1 = process.env.PRIVATE_KEY_1
+const privateKey2 = process.env.PRIVATE_KEY_2
+console.log("process.env.PRIVATE_KEY_2",process.env.PRIVATE_KEY_2)
 
-const privateKey1 = Buffer.from(JSON.stringify(0x5ffab17266fb40e4844935d9fc317bccb663c576b91708527439578f8f01cc6e), 'hex')
-const privateKey2 = Buffer.from(JSON.stringify(0xac1c5713206654e7cd538785477d335f302437c29603ab6dabba1c2f5fc2176f), 'hex')
-
-web3.eth.getTransactionCount(account1, (err, txCount) => {
+const privateKey1Buffer = Buffer.from(privateKey1, 'hex')
+const privateKey2Buffer = Buffer.from(privateKey2, 'hex')
+console.log('Buffer 1: ', privateKey1Buffer)
+console.log('Buffer 2: ', privateKey2Buffer)
+ web3.eth.getTransactionCount(account1, (err, txCount) => {
   // Build the transaction
   const txObject = {
     nonce:    web3.utils.toHex(txCount),
@@ -28,7 +27,7 @@ web3.eth.getTransactionCount(account1, (err, txCount) => {
 
   // Sign the transaction
   const tx = new Tx(txObject)
-  tx.sign(privateKey1)
+  tx.sign(privateKey1Buffer)
 
   const serializedTx = tx.serialize()
   const raw = '0x' + serializedTx.toString('hex')
